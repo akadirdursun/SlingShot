@@ -6,25 +6,18 @@ namespace SlingShotProject
 {
     public class SlingString : MonoBehaviour
     {
-        [SerializeField] private Transform leftStringNode;
-        [SerializeField] private Transform rightStringNode;
-        [SerializeField] private Transform stringSeat;        
-
+        [SerializeField] private Transform leftPoint;
+        [SerializeField] private Transform rightPoint;
+        [SerializeField] private Transform stringSeat;
         private LineRenderer lineRenderer;
 
         private void Awake()
         {
             lineRenderer = GetComponent<LineRenderer>();
         }
-
         private void Update()
         {
-            DrawSlingString();
-        }
-
-        private void DrawSlingString()
-        {
-            lineRenderer.SetPositions(new Vector3[] { leftStringNode.position, stringSeat.position, rightStringNode.position });
+            lineRenderer.SetPositions(new Vector3[] { leftPoint.position, stringSeat.position, rightPoint.position });
         }
     }
 }

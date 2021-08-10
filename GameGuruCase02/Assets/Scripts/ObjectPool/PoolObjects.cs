@@ -7,17 +7,23 @@ namespace SlingShotProject
     [CreateAssetMenu(fileName = "PoolObject", menuName = "Object Pooling/NewObjectPool")]
     public class PoolObjects : ScriptableObject
     {
-        public GameObject objectPrefab;
-        public Queue<GameObject> poolObjects = new Queue<GameObject>();
+        [SerializeField] private GameObject objectPrefab;
+        private GameObject currentObject;
+        private Queue<GameObject> poolObjects = new Queue<GameObject>();
+
+        public GameObject CurrentObject { get => currentObject; }
 
         public GameObject GetNextObject()
         {
             if (poolObjects.Count == 0 || poolObjects.Peek().activeInHierarchy)
-                return InstantiateNewObjectToPool();
+            {
+                currentObject = InstantiateNewObjectToPool();
+                return currentObject;
+            }
 
-            GameObject obj = poolObjects.Dequeue();
-            poolObjects.Enqueue(obj);
-            return obj;
+            currentObject = poolObjects.Dequeue();
+            poolObjects.Enqueue(currentObject);
+            return currentObject;
         }
 
         public GameObject InstantiateNewObjectToPool()

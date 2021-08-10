@@ -11,12 +11,16 @@ namespace SlingShotProject
         [SerializeField] private float sensetivity = 0.005f;
 
         private PlayerControls controls;
+        private Vector2 stretch;
+
+        #region Events
         public delegate void TouchPressDelegate();
         public event TouchPressDelegate onTouchPressStarted;
-        public event TouchPressDelegate onTouchPressCanceled;
 
         public delegate void TouchPositionDelegate(Vector2 position);
         public event TouchPositionDelegate onTouchDrag;
+        public event TouchPositionDelegate onTouchPressCanceled;
+        #endregion
 
         public void EnableControls()
         {
@@ -36,18 +40,21 @@ namespace SlingShotProject
         }
 
         private void TouchPressStarted(InputAction.CallbackContext context)
-        {            
+        {
+            stretch = Vector2.zero;
             onTouchPressStarted?.Invoke();
+        }
+        private void TouchDragPerformed(InputAction.CallbackContext context)
+        {
+            Vector2 pos = context.ReadValue<Vector2>() * sensetivity;
+            stretch -= pos;
+            onTouchDrag?.Invoke(pos);
         }
 
         private void TouchPressCanceled(InputAction.CallbackContext context)
-        {            
-            onTouchPressCanceled?.Invoke();
+        {
+            onTouchPressCanceled?.Invoke(stretch);
         }
 
-        private void TouchDragPerformed(InputAction.CallbackContext context)
-        {
-            onTouchDrag?.Invoke(context.ReadValue<Vector2>() * sensetivity);
-        }
     }
 }

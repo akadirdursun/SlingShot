@@ -8,8 +8,11 @@ namespace SlingShotProject
     {
         [SerializeField] private Rigidbody characterRB;
         [SerializeField] private Animator characterAnim;
+        [SerializeField] private Transform shoulderTarget;
 
         private bool isShooted;
+
+        public Transform ShoulderTarget { get => shoulderTarget; }
 
         private void OnEnable()
         {
@@ -36,19 +39,19 @@ namespace SlingShotProject
             characterAnim.SetBool("IsSeated", false);
         }
 
-        public void Shoot(Vector3 direction, float forceValue)
+        public void Shoot(Vector3 force)
         {
             transform.parent = null;
             characterRB.isKinematic = false;
-            characterRB.AddForce(direction * forceValue, ForceMode.Impulse);
+            characterRB.AddForce(force, ForceMode.Impulse);            
             characterAnim.SetBool("IsFlying", true);
             isShooted = true;
         }
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (isShooted)
-            {
+            if (isShooted && !collision.gameObject.CompareTag("Target"))
+            {                
                 SetAsDefault();
                 gameObject.SetActive(false);
                 isShooted = false;

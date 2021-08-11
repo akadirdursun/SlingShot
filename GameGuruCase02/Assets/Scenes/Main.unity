@@ -931,7 +931,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8167015407760356276, guid: 709e3d362fba3fc428c8985dea737954, type: 3}
       propertyPath: numOfPoints
-      value: 40
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 8167015407760356276, guid: 709e3d362fba3fc428c8985dea737954, type: 3}
       propertyPath: timeBetweenPoints

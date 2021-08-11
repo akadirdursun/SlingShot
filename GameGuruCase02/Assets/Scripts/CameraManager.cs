@@ -38,7 +38,7 @@ namespace SlingShotProject
             mainCM.gameObject.SetActive(false);
             aimCM.gameObject.SetActive(true);
         }
-        private void ReleaseAim()
+        public void ReleaseAim()
         {
             aimCM.gameObject.SetActive(false);
             mainCM.gameObject.SetActive(true);

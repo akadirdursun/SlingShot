@@ -63,7 +63,7 @@ namespace SlingShotProject
             slingSeat.position += new Vector3(position.x, 0, position.y);
             float seatPosX = Mathf.Clamp(slingSeat.position.x, defaultSeatPos.x - maxStretchX, defaultSeatPos.x + maxStretchX);
             float seatPosZ = Mathf.Clamp(slingSeat.position.z, defaultSeatPos.z - maxStretchZ, defaultSeatPos.z + seatOffset.z);
-            slingSeat.position = new Vector3(seatPosX, slingSeat.position.y, seatPosZ);
+            slingSeat.position = new Vector3(seatPosX, slingSeat.position.y, seatPosZ);            
             DrawTrajectoryPrediction();
         }
 
@@ -76,7 +76,7 @@ namespace SlingShotProject
                 slingSeat.position = defaultSeatPos;
                 currentCharacter.LiftOffSeat(IdlePos.position);
                 return;
-            }            
+            }
             currentCharacter.Shoot(velocity);
             slingSeat.position = defaultSeatPos;
             SetTheCharacterObject();
@@ -85,10 +85,10 @@ namespace SlingShotProject
         private Vector3 CalculateVelocity()
         {
             stretch = defaultSeatPos.z - slingSeat.position.z;
-            Vector3 dir = (defaultSeatPos - slingSeat.position + shootYOffset).normalized;            
+            Vector3 dir = (defaultSeatPos - slingSeat.position + shootYOffset).normalized;
             return dir * stretch * forceValue;
         }
-    
+
         private void DrawTrajectoryPrediction()
         {
             Vector3 velocity = CalculateVelocity();

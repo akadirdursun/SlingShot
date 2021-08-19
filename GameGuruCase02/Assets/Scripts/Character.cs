@@ -43,15 +43,15 @@ namespace SlingShotProject
         {
             transform.parent = null;
             characterRB.isKinematic = false;
-            characterRB.AddForce(force, ForceMode.Impulse);            
+            characterRB.AddForce(force, ForceMode.Impulse);
             characterAnim.SetBool("IsFlying", true);
             isShooted = true;
         }
 
-        private void OnCollisionEnter(Collision collision)
+        private void OnTriggerEnter(Collider other)
         {
-            if (isShooted && !collision.gameObject.CompareTag("Target"))
-            {                
+            if (isShooted && !other.CompareTag("Target"))
+            {
                 SetAsDefault();
                 gameObject.SetActive(false);
                 isShooted = false;
